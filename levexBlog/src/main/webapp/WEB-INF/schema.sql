@@ -1,33 +1,33 @@
 create TABLE blog.tag
 (
     id   int NOT NULL AUTO_INCREMENT,
-    name varchar(15),
+    name varchar(255),
     PRIMARY KEY (id)
 );
 
 create TABLE blog.post
 (
     id         int NOT NULL AUTO_INCREMENT,
-    name       varchar(15),
-    text       Text,
-    status_id  int(15),
-    author_id  int(15),
-    created_at Date,
-    updated_at Date,
-    FOREIGN KEY (author_id) REFERENCES blog.user (id),
-    FOREIGN KEY (status_id) REFERENCES blog.status (id),
+    name       varchar(255), NOT NULL,
+    text       Text, NOT NULL,
+    status  varchar(255), NOT NULL,
+    author_id  int(15), NOT NULL,
+    created_at Date, NOT NULL,
+    updated_at Date, NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES blog.users (id),
     PRIMARY KEY (id)
 );
 
-create TABLE blog.user
+create TABLE blog.users
 (
     id         int NOT NULL AUTO_INCREMENT,
-    first_name varchar(255) NOT NULL,
-    last_name  varchar(255) NOT NULL,
+    username varchar(255) NOT NULL,
+    lastName  varchar(255) NOT NULL,
     password   varchar(255) NOT NULL,
     email      varchar(255) NOT NULL,
     created_at Date,
-    count_post int(10),
+    enabled tinyint(1) NOT NULL,
+    activateCode varchar(255)
     PRIMARY KEY (id)
 );
 
@@ -37,9 +37,8 @@ create TABLE blog.comment
     message    TEXT,
     post_id    int(15),
     author_id  int(15),
-    email      varchar(15),
     created_at Date,
-    FOREIGN KEY (author_id) REFERENCES blog.user (id),
+    FOREIGN KEY (author_id) REFERENCES blog.users (id),
     FOREIGN KEY (post_id) REFERENCES blog.post (id),
     PRIMARY KEY (id)
 );
@@ -54,16 +53,7 @@ create TABLE blog.tag_x_post
 );
 
 create TABLE blog.role (
-                           id int NOT NULL AUTO_INCREMENT,
-                           name varchar(100),
-                           PRIMARY KEY (id)
-);
-
-create TABLE blog.user_x_role
-(
-    role_id int NOT NULL,
-    user_id  int NOT NULL,
-    PRIMARY KEY (role_id, user_id),
-    FOREIGN KEY (role_id) REFERENCES blog.role (id),
-    FOREIGN KEY (user_id) REFERENCES blog.user (id)
+     id int NOT NULL AUTO_INCREMENT,
+     name varchar(100),
+     PRIMARY KEY (id)
 );

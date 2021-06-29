@@ -7,9 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,15 +25,22 @@ public class User implements UserDetails {
     @Column(name = "id")
     private int id;
 
+    @Size(min = 3, message = "at least 3 characters")
+    @NotEmpty(message = "username is required field")
     @Column(name = "username")
     private String username;
-
+    @Size(min = 3, message = "at least 3 characters")
+    @NotEmpty(message = "lastName is required field")
     @Column(name = "lastName")
     private String lastName;
-
+    @Size(min = 3, message = "at least 3 characters")
+    @NotEmpty(message = "password is required field")
     @Column(name = "password")
     private String password;
 
+    @Pattern(regexp ="([a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,})" ,
+            message = "use this template XXX@YYY.zzz")
+    @NotEmpty(message = "email is required field")
     @Column(name = "email")
     private String email;
 
@@ -48,13 +57,13 @@ public class User implements UserDetails {
     @JoinColumn(name = "authority_id")
     private Authority authority;
 
-    //
-//        @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-//    private List<CommentEntity> comments;
-//
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<Post> posts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Comment> comments;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

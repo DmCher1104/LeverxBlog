@@ -35,8 +35,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void updatePostOwnedByUser(List<Post> postList,Post post, int id) {
-        postDao.updatePost(postList,post, id);
+    public void updatePostOwnedByUser(List<Post> postList, Post post, int id) {
+        postDao.updatePost(postList, post, id);
     }
 
     @Override
@@ -47,9 +47,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void deletePostOwnedByUser(List<Post> postList,int id) {
-        postDao.deletePostOwnedByUser(postList,id);
+    public void deletePostOwnedByUser(List<Post> postList, int id) {
+        postDao.deletePostOwnedByUser(postList, id);
     }
-}
+    }
 
 

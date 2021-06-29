@@ -7,8 +7,7 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "authorities")
@@ -27,7 +26,7 @@ public class Authority implements GrantedAuthority {
     private String authority;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "authority")
-    private List<User> usersListOfAuthority;
+    private Set<User> usersListOfAuthority;
 
 
 }

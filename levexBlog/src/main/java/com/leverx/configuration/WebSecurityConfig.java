@@ -31,8 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
-       .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
-       .authoritiesByUsernameQuery("SELECT u.username, a.authority FROM users u inner join authorities a on a.id = u.authority_id where u.username=?");
+                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT u.username, a.authority FROM users u inner join authorities a on a.id = u.authority_id where u.username=?");
     }
 
     @Override
@@ -45,11 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/registration").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**","/news","/posts/**","/createNewPost").hasRole("ADMIN")
+                .antMatchers("/admin/**", "/news", "/createNewPost", "/posts/*", "/posts/**").hasRole("ADMIN")
                 //Доступ только для пользователей с ролью юзер
-                .antMatchers("/news","/createNewPost","/posts/*","/posts/**").hasRole("USER")
+                .antMatchers("/news", "/createNewPost", "/posts/*", "/posts/**").hasRole("USER")
                 //Доступ разрешен всем пользователей
-                .antMatchers("/","/activate/*").permitAll()
+                .antMatchers("/", "/activate/*").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()

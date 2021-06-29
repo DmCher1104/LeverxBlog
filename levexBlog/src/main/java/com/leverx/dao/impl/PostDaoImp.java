@@ -3,7 +3,7 @@ package com.leverx.dao.impl;
 import com.leverx.dao.PostDao;
 import com.leverx.entity.Post;
 import com.leverx.entity.User;
-import com.leverx.exception_handling.NoSuchPostException;
+import com.leverx.exception_handling.NoSuchException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -46,6 +46,7 @@ public class PostDaoImp implements PostDao {
         List<User> userFromDB = query.getResultList();
 
         post.setUser(userFromDB.get(0));
+//        post.setTags();
         post.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd")
                 .format(new Date()));
         session.save(post);
@@ -81,7 +82,7 @@ public class PostDaoImp implements PostDao {
                 return;
             }
         }
-        throw new NoSuchPostException("there is no your post with ID = "
+        throw new NoSuchException("there is no your post with ID = "
                 + id + " in database");
     }
 
@@ -98,7 +99,7 @@ public class PostDaoImp implements PostDao {
             }
         }
 
-        throw new NoSuchPostException("there is no your post with ID = "
+        throw new NoSuchException("there is no your post with ID = "
                 + id + " in database");
     }
 }

@@ -11,7 +11,7 @@ public interface UserService extends UserDetailsService {
 
     public List<User> getAllUsers();
 
-    public boolean registrationUser(User user, String username);
+    public boolean registrationUser(User user);
 
     public void updateUserByAdmin(User user);
 
@@ -21,6 +21,8 @@ public interface UserService extends UserDetailsService {
 
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    public boolean findUserByUsername(String username);
 
     public User findUserByActivationCode(String code);
 

@@ -44,14 +44,14 @@ public class Config {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory(){
+    public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.leverx");
 
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-        hibernateProperties.setProperty("hibernate.show_sql","true");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        hibernateProperties.setProperty("hibernate.show_sql", "true");
 
         sessionFactory.setHibernateProperties(hibernateProperties);
 
@@ -59,8 +59,8 @@ public class Config {
     }
 
     @Bean
-    public HibernateTransactionManager hibernateTransactionManager(){
-        HibernateTransactionManager hibernateTransactionManager= new HibernateTransactionManager();
+    public HibernateTransactionManager hibernateTransactionManager() {
+        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
         hibernateTransactionManager.setSessionFactory(sessionFactory().getObject());
 
         return hibernateTransactionManager;

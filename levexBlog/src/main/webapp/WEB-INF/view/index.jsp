@@ -35,6 +35,7 @@
         <th>Status</th>
         <th>Created_at</th>
         <th>Updated_at</th>
+        <th>tag(s)</th>
     </tr>
 
     <c:forEach var="post" items="${postList}">
@@ -45,6 +46,14 @@
             <td>${post.status}</td>
             <td>${post.createdAt}</td>
             <td>${post.updatedAt}</td>
+<%--            <ul>--%>
+<%--                <c:forEach var="tag" items="${post.tags}">--%>
+<%--                <li>${tag}</li>--%>
+
+<%--                </c:forEach>--%>
+
+<%--            </ul>--%>
+<%--            <td>${post.tags}</td>--%>
         </tr>
     </c:forEach>
     </table>

@@ -2,7 +2,6 @@ package com.leverx.controller;
 
 import com.leverx.entity.Post;
 import com.leverx.entity.Status;
-import com.leverx.exception_handling.NoSuchPostException;
 import com.leverx.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,7 @@ public class IndexController {
         List<Post> postList = postService.getAllPosts();
         List<Post> publicPostList = new ArrayList<>();
         for (int i = 0; i < postList.size(); i++) {
-            if(postList.get(i).getStatus() == Status.PUBLIC){
+            if (postList.get(i).getStatus() == Status.PUBLIC) {
                 publicPostList.add(postList.get(i));
             }
         }

@@ -11,7 +11,7 @@ public interface UserDao extends UserDetailsService {
 
     public List<User> getAllUsers();
 
-    public boolean registrationUser(User user, String username);
+    public boolean registrationUser(User user);
 
     public void updateUserByAdmin(User user);
 
@@ -25,5 +25,7 @@ public interface UserDao extends UserDetailsService {
     public User findUserByActivationCode(String code);
 
     public boolean activateUser(String code);
+
+    public boolean findUserByUsername(String username);
 }
 

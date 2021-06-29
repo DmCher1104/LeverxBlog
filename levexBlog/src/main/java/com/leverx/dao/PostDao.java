@@ -12,4 +12,5 @@ public interface PostDao {
     public void updatePost(List<Post> postList,Post post,int id);
     public List<Post> getAllPostsOwnedByUser();
     public void deletePostOwnedByUser(List<Post> postList,int id);
+
 }

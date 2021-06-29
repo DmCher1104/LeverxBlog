@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean registrationUser(User user, String username) {
-        userDao.registrationUser(user, username);
+    public boolean registrationUser(User user) {
+        userDao.registrationUser(user);
         return true;
     }
 
@@ -59,6 +59,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User findUserByActivationCode(String code) {
         return userDao.findUserByActivationCode(code);
+    }
+
+    @Override
+    @Transactional
+    public boolean findUserByUsername(String username) {
+        return userDao.findUserByUsername(username);
     }
 
     @Override

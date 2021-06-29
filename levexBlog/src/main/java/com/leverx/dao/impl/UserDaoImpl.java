@@ -3,6 +3,7 @@ package com.leverx.dao.impl;
 import com.leverx.dao.UserDao;
 import com.leverx.entity.Authority;
 import com.leverx.entity.User;
+import com.leverx.exception_handling.NoSuchException;
 import com.leverx.service.impl.MailServiceImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -65,16 +66,8 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public boolean registrationUser(User user, String username) {
+    public boolean registrationUser(User user) {
         Session session = sessionFactory.getCurrentSession();
-
-        Query<User> query = session.createQuery("from User where username =: username");
-        query.setParameter("username", username);
-        List<User> userFromDB = query.getResultList();
-
-        if (userFromDB.size() != 0) {
-            return false;
-        }
 
         Authority authority = session.get(Authority.class, 1);
         user.setAuthority(authority);
@@ -137,5 +130,18 @@ public class UserDaoImpl implements UserDao {
         user.get(0).setActivationCode(null);
         session.update(user.get(0));
         return true;
+    }
+
+    @Override
+    public boolean findUserByUsername(String username) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("from User where username =: username");
+        query.setParameter("username", username);
+        List<User> user = query.getResultList();
+        if(user.isEmpty()){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

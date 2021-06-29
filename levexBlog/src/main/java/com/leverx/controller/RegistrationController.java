@@ -1,12 +1,15 @@
 package com.leverx.controller;
 
 import com.leverx.entity.User;
+import com.leverx.exception_handling.NoSuchException;
 import com.leverx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
@@ -24,16 +27,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registrationUser(@ModelAttribute("user") User user,
+    public String registrationUser(@Valid @ModelAttribute("user") User user,
                                    @RequestParam("username") String username,
-                                   BindingResult bindingResult, Model model) {
+                                   BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "redirect:/registration";
         }
 
-        if (!userService.registrationUser(user, username)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+        if (!userService.registrationUser(user)) {
+           // model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration";
         }
 
@@ -41,12 +44,12 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{code}")
-    private String activate(@PathVariable String code, Model model){
+    private String activate(@PathVariable String code, Model model) {
 
-        boolean isActivate =userService.activateUser(code);
-        if(isActivate){
+        boolean isActivate = userService.activateUser(code);
+        if (isActivate) {
             model.addAttribute("message", "User successfully activated");
-        }else {
+        } else {
             model.addAttribute("message", "Activation code not found");
         }
         return "login";

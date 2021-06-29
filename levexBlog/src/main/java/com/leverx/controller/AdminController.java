@@ -34,13 +34,13 @@ public class AdminController {
     }
 
     @PostMapping("/updateUserByAdmin")
-    public String updateUserByAdmin(@ModelAttribute("user") User user){
+    public String updateUserByAdmin(@ModelAttribute("user") User user) {
         userService.updateUserByAdmin(user);
         return "redirect:/getUsers";
     }
 
     @RequestMapping("/deleteUser")
-    public String deleteUser (@RequestParam("userId") int id, Model model) {
+    public String deleteUser(@RequestParam("userId") int id, Model model) {
         userService.deleteUser(id);
         return "redirect:/getUsers";
     }
