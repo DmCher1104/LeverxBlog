@@ -35,9 +35,11 @@ public class RegistrationController {
             return "redirect:/registration";
         }
 
-        if (!userService.registrationUser(user)) {
-           // model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
+        if(!(userService.findUserByUsername(username)==true)){
+            userService.registrationUser(user);
+        }else {
+            throw new NoSuchException("there is user  = "
+                    + username + " in database, chose another name");
         }
 
         return "redirect:/login";

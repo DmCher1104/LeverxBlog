@@ -75,7 +75,8 @@ public class UserDaoImpl implements UserDao {
         user.setCreatedAt(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         user.setEnabled(1);
         user.setActivationCode(UUID.randomUUID().toString());
-        session.save(user);
+
+        session.saveOrUpdate(user);
 
         if (!(user.getEmail().isEmpty())) {
             String message = String.format("Hello, %s!\n" +
